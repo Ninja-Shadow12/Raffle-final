@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Your Name for Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .raffle-ticket {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+        .form-container input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter Your Name for Ticket</h1>
+
+    <div class="raffle-ticket" id="raffleTicketNumber"></div>
+
+    <div class="form-container">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <button onclick="submitEntry()">Submit</button>
+    </div>
+
+    <script>
+        // Get the ticket number from the URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const ticketNumber = urlParams.get('ticket');
+        document.getElementById("raffleTicketNumber").textContent = `You have selected ticket number: ${ticketNumber}`;
+
+        function submitEntry() {
+            const name = document.getElementById("name").value;
+            if (name) {
+                // Store the entry in localStorage (can be replaced with a backend service for production)
+                let raffleEntries = JSON.parse(localStorage.getItem("raffleEntries")) || [];
+                raffleEntries.push({ ticket: ticketNumber, name: name });
+
+                // Save updated entries to localStorage
+                localStorage.setItem("raffleEntries", JSON.stringify(raffleEntries));
+
+                alert(`Thank you, ${name}! You have successfully entered for ticket number ${ticketNumber}.`);
+                // Redirect to the main page or a confirmation page
+                window.location.href = "new 1.html";
+            } else {
+                alert('Please enter your name.');
+            }
+        }
+    </script>
+
+</body>
+</html>
